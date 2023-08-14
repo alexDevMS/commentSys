@@ -1,0 +1,1 @@
+export const USER_REQUEST = 'https://randomuser.me/api/?inc=name,login,picture&noinfo';

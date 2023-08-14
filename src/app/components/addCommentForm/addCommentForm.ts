@@ -18,7 +18,9 @@ export class AddCommentForm {
      * @private
      */
     private static template = `
-        <div>FORM</div>
+        <div>IMAGE</div>
+        <div>INPUT</div>
+        <div>BUTTON</div>
     `
 
     constructor(form: HTMLElement) {

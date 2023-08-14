@@ -6,7 +6,7 @@ import styles from "./app.module.scss"
 /**
  * Перечисление, созданное для доступа к названиям элементов в одном месте
  */
-enum elementsEnum {
+enum ELEMENTS {
     navigation= "navigation",
     skeleton = "skeleton",
     commentsSystem = "commentsSystem"
@@ -31,12 +31,12 @@ export class App {
      */
     private static template  = `
         <header>
-            <nav data-element="${elementsEnum.navigation}"></nav>
+            <nav data-element="${ELEMENTS.navigation}"></nav>
         </header>
         <aside></aside>
         <main>
-            <section data-element="${elementsEnum.skeleton}" class="${styles.skeletonContainer}"></section>
-            <section data-element="${elementsEnum.commentsSystem}"></section>
+            <section data-element="${ELEMENTS.skeleton}" class="${styles.skeletonContainer}"></section>
+            <section data-element="${ELEMENTS.commentsSystem}"></section>
         </main>
         
     `
@@ -52,7 +52,7 @@ export class App {
     render() {
         this._root.innerHTML = App.template;
         getElements(this._root,this._elements);
-        const skeleton = new Skeleton(this._elements[elementsEnum.skeleton]);
-        const commentsModule = new CommentsSystem(this._elements[elementsEnum.commentsSystem]);
+        const skeleton = new Skeleton(this._elements[ELEMENTS.skeleton]);
+        const commentsModule = new CommentsSystem(this._elements[ELEMENTS.commentsSystem]);
     }
 }

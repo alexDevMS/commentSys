@@ -2,11 +2,12 @@ import {Elements, getElements} from "../utils/utils.ts";
 import {ControlPanel} from "../controlPanel/controlPanel.ts";
 import {AddCommentForm} from "../addCommentForm/addCommentForm.ts";
 import {Comments} from "../comments/comments.ts";
+import styles from "./commentsSystem.module.scss";
 
 /**
  * Перечисление, созданное для доступа к названиям элементов в одном месте
  */
-enum elementsEnum {
+enum ELEMENTS {
     controlPanel = "controlPanel",
     addCommentForm = "addCommentForm",
     comments = "comments"
@@ -30,9 +31,9 @@ export class CommentsSystem {
      * @private
      */
     private static template = `
-            <div data-element=${elementsEnum.controlPanel}></div>
-            <div data-element=${elementsEnum.addCommentForm}></div>
-            <div data-element=${elementsEnum.comments}></div>
+            <div data-element=${ELEMENTS.controlPanel} class="${styles.controlPanel}"></div>
+            <div data-element=${ELEMENTS.addCommentForm} class="${styles.addCommentForm}"></div>
+            <div data-element=${ELEMENTS.comments} class="${styles.comments}"></div>
     `
 
     constructor(commentsRoot: HTMLElement) {
@@ -46,8 +47,8 @@ export class CommentsSystem {
     render() {
         this._commentsRoot.innerHTML = CommentsSystem.template
         getElements(this._commentsRoot, this._elements)
-        const controlPanel = new ControlPanel(this._elements[elementsEnum.controlPanel]);
-        const addCommentForm = new AddCommentForm(this._elements[elementsEnum.addCommentForm]);
-        const comments = new Comments(this._elements[elementsEnum.comments]);
+        const controlPanel = new ControlPanel(this._elements[ELEMENTS.controlPanel]);
+        const addCommentForm = new AddCommentForm(this._elements[ELEMENTS.addCommentForm]);
+        const comments = new Comments(this._elements[ELEMENTS.comments]);
     }
 }

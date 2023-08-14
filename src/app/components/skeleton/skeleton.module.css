@@ -1,0 +1,13 @@
+.skeleton {
+  width: 47%;
+  height: 50px;
+  background-color: #d9d9d9;
+}
+
+.bigSkeleton {
+  width: 100%;
+  height: 200px;
+  background-color: #d9d9d9;
+}
+
+/*# sourceMappingURL=skeleton.module.css.map */

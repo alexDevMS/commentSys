@@ -1,12 +1,13 @@
 import {Elements, getElements} from "../utils/utils.ts";
 
-enum elementsEnum {
+enum ELEMENTS {
     allCommentsFilter = "allCommentsFilter",
     sortingSelect = "sortingSelect",
     favoriteFilter = "favoriteFilter",
 }
 
 export class ControlPanel {
+
     /**
      * HTML элемент, в который встраивается компонент
      * @private
@@ -20,10 +21,9 @@ export class ControlPanel {
      * @private
      */
     private static template = `
-        <div>CONTROL PANEL</div>
-        <div data-element="${elementsEnum.allCommentsFilter}">ALL COMMS</div>
-        <div data-element="${elementsEnum.sortingSelect}">SORT SELECT</div>
-        <div data-element="${elementsEnum.favoriteFilter}">FAVORITES</div>
+        <div data-element="${ELEMENTS.allCommentsFilter}">ALL COMMS</div>
+        <div data-element="${ELEMENTS.sortingSelect}">SORT SELECT</div>
+        <div data-element="${ELEMENTS.favoriteFilter}">FAVORITES</div>
     `
 
 
@@ -52,9 +52,9 @@ export class ControlPanel {
     }
 
     addListeners(){
-        const allCommentsFilter = this._elements[elementsEnum.allCommentsFilter];
-        const sortingSelect = this._elements[elementsEnum.sortingSelect];
-        const favoriteFilter = this._elements[elementsEnum.favoriteFilter];
+        const allCommentsFilter = this._elements[ELEMENTS.allCommentsFilter];
+        const sortingSelect = this._elements[ELEMENTS.sortingSelect];
+        const favoriteFilter = this._elements[ELEMENTS.favoriteFilter];
 
         allCommentsFilter.addEventListener('click', this.onAllCommentsFilterClick);
         sortingSelect.addEventListener('click', this.onSortingSelectClick);
