@@ -54,6 +54,5 @@ export class App {
         getElements(this._root,this._elements);
         const skeleton = new Skeleton(this._elements[elementsEnum.skeleton]);
         const commentsModule = new CommentsSystem(this._elements[elementsEnum.commentsSystem]);
-        console.log(skeleton, commentsModule);
     }
 }
