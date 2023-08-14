@@ -1,4 +1,5 @@
 import {Elements, getElements} from "../utils/utils.ts";
+import style from "./controlPanel.module.scss";
 
 enum ELEMENTS {
     allCommentsFilter = "allCommentsFilter",
@@ -21,9 +22,13 @@ export class ControlPanel {
      * @private
      */
     private static template = `
-        <div data-element="${ELEMENTS.allCommentsFilter}">ALL COMMS</div>
+        <div data-element="${ELEMENTS.allCommentsFilter}">
+            Комментарии <span>(${5})</span>
+        </div>
         <div data-element="${ELEMENTS.sortingSelect}">SORT SELECT</div>
-        <div data-element="${ELEMENTS.favoriteFilter}">FAVORITES</div>
+        <div data-element="${ELEMENTS.favoriteFilter}">
+            Избранное <img src="/public/favorites.png" alt="a filled heart in a circle"/>
+        </div>
     `
 
 

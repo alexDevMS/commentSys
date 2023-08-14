@@ -2,6 +2,7 @@ import {Skeleton} from "./components/skeleton/skeleton.ts";
 import {CommentsSystem} from "./components/commentsSystem/commentsSystem.ts";
 import {Elements, getElements} from "./components/utils/utils.ts";
 import styles from "./app.module.scss"
+import '../assets/styles/global.scss'
 
 /**
  * Перечисление, созданное для доступа к названиям элементов в одном месте
@@ -37,9 +38,7 @@ export class App {
         <main>
             <section data-element="${ELEMENTS.skeleton}" class="${styles.skeletonContainer}"></section>
             <section data-element="${ELEMENTS.commentsSystem}"></section>
-        </main>
-        
-    `
+        </main>`
 
     constructor(root: HTMLElement) {
         this._root = root
