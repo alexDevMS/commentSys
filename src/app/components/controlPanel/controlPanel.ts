@@ -3,8 +3,9 @@ import style from "./controlPanel.module.scss";
 
 enum ELEMENTS {
     allCommentsFilter = "allCommentsFilter",
-    sortingSelect = "sortingSelect",
     favoriteFilter = "favoriteFilter",
+    selectButton = "selectButton",
+    selectDropdown = "selectDropdown",
 }
 
 export class ControlPanel {
@@ -17,18 +18,31 @@ export class ControlPanel {
 
     private readonly _elements: Elements = {};
 
+    private static _selectData = [
+        {key: "date", value: "По дате"},
+        {key: "reply", value: "По ответам"},
+        {key: "relevance", value: "По актуальности"},
+        {key: "vote", value: "По голосам"},
+    ]
+
     /**
      * Шаблон компонента (неизменяемый)
      * @private
      */
-    private static template = `
-        <div data-element="${ELEMENTS.allCommentsFilter}">
-            Комментарии <span>(${5})</span>
+    private static _template = `
+        <button data-element="${ELEMENTS.allCommentsFilter}">
+            Комментарии <span class="${style.commentCounter}">(${5})</span>
+        </button>
+        <div class="${style.select}">
+            <button data-element="${ELEMENTS.selectButton}">По актуальности <img src="/arrow.png" alt="arrow"/></button>
+            <ul data-element="${ELEMENTS.selectDropdown}" class=" ${style.dropdown} ${style.hide}">
+                ${ControlPanel._selectData.map(item => 
+                    `<li  value="${item.key}">${item.value}</li>`).join("")}
+            </ul>
         </div>
-        <div data-element="${ELEMENTS.sortingSelect}">SORT SELECT</div>
-        <div data-element="${ELEMENTS.favoriteFilter}">
-            Избранное <img src="/public/favorites.png" alt="a filled heart in a circle"/>
-        </div>
+        <button data-element="${ELEMENTS.favoriteFilter}">
+            Избранное <img src="/favorites.png" alt="a filled heart in a circle"/>
+        </button>
     `
 
 
@@ -41,28 +55,48 @@ export class ControlPanel {
      * Отрисовывает компонент
      */
     render() {
-        this._controlPanel.innerHTML = ControlPanel.template;
+        this._controlPanel.innerHTML = ControlPanel._template;
         getElements(this._controlPanel, this._elements);
-        this.addListeners()
+        this.addListeners();
     }
 
-    onAllCommentsFilterClick = (event: MouseEvent) => {
+    onAllCommentsFilterClick = () => {
         console.log("All COMS");
     }
-    onSortingSelectClick = (event: MouseEvent) => {
-        console.log("SELECT MODAL OPEN HERE");
-    }
-    onFavoriteFilterClick = (event: MouseEvent) => {
+
+
+    onFavoriteFilterClick = () => {
         console.log("FAVORITE")
+    }
+
+    onSelectButtonClick = () => {
+        const button = this._elements[ELEMENTS.selectButton];
+        const icon = button.firstElementChild!;
+        const dropdown = this._elements[ELEMENTS.selectDropdown];
+
+        icon.classList.toggle(style.rotate);
+
+        dropdown.classList.toggle(style.hide);
+        if (!dropdown.classList.contains(style.hide)) {
+            dropdown.style.top = button.getBoundingClientRect().height + 5 + "px";
+        }
+    }
+
+    onSelectDropdownClick = (event: MouseEvent) => {
+        if (event.target instanceof HTMLElement)
+            sessionStorage.setItem("sort", event.target.getAttribute("value")!)
     }
 
     addListeners(){
         const allCommentsFilter = this._elements[ELEMENTS.allCommentsFilter];
-        const sortingSelect = this._elements[ELEMENTS.sortingSelect];
         const favoriteFilter = this._elements[ELEMENTS.favoriteFilter];
+        const selectButton = this._elements[ELEMENTS.selectButton];
+        const selectDropdown = this._elements[ELEMENTS.selectDropdown];
 
         allCommentsFilter.addEventListener('click', this.onAllCommentsFilterClick);
-        sortingSelect.addEventListener('click', this.onSortingSelectClick);
         favoriteFilter.addEventListener('click', this.onFavoriteFilterClick);
+        selectButton.addEventListener('click', this.onSelectButtonClick);
+        selectDropdown.addEventListener('click', this.onSelectDropdownClick);
     }
+
 }
