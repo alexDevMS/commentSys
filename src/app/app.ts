@@ -30,9 +30,15 @@ export class App {
      * @private
      */
     private static template  = `
-        <nav data-element="${elementsEnum.navigation}">NAVIGATION</nav>
-        <section data-element="${elementsEnum.skeleton}" class="${styles.skeletonContainer}"></section>
-        <section data-element="${elementsEnum.commentsSystem}"></section>
+        <header>
+            <nav data-element="${elementsEnum.navigation}"></nav>
+        </header>
+        <aside></aside>
+        <main>
+            <section data-element="${elementsEnum.skeleton}" class="${styles.skeletonContainer}"></section>
+            <section data-element="${elementsEnum.commentsSystem}"></section>
+        </main>
+        
     `
 
     constructor(root: HTMLElement) {
