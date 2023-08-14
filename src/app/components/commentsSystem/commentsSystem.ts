@@ -3,6 +3,9 @@ import {ControlPanel} from "../controlPanel/controlPanel.ts";
 import {AddCommentForm} from "../addCommentForm/addCommentForm.ts";
 import {Comments} from "../comments/comments.ts";
 
+/**
+ * Перечисление, созданное для доступа к названиям элементов в одном месте
+ */
 enum elementsEnum {
     controlPanel = "controlPanel",
     addCommentForm = "addCommentForm",
@@ -10,9 +13,22 @@ enum elementsEnum {
 }
 
 export class CommentsSystem {
-    private readonly _commentsRoot: HTMLElement
+    /**
+     * HTML элемент, в который встраивается компонент
+     * @private
+     */
+    private readonly _commentsRoot: HTMLElement;
+
+    /**
+     * Объект элементов на текущем уровне
+     * @private
+     */
     private readonly _elements:Elements = {}
 
+    /**
+     * Шаблон компонента (неизменяемый)
+     * @private
+     */
     private static template = `
             <div data-element=${elementsEnum.controlPanel}></div>
             <div data-element=${elementsEnum.addCommentForm}></div>
@@ -24,6 +40,9 @@ export class CommentsSystem {
         this.render()
     }
 
+    /**
+     * Отрисовывает компонент
+     */
     render() {
         this._commentsRoot.innerHTML = CommentsSystem.template
         getElements(this._commentsRoot, this._elements)
