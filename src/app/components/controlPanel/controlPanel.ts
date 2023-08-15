@@ -1,5 +1,6 @@
 import {Elements, getElements} from "../utils/utils.ts";
 import style from "./controlPanel.module.scss";
+import {Component} from "../utils/declareComponent.ts";
 
 enum ELEMENTS {
     allCommentsFilter = "allCommentsFilter",
@@ -8,15 +9,21 @@ enum ELEMENTS {
     selectDropdown = "selectDropdown",
 }
 
-export class ControlPanel {
+export class ControlPanel implements Component {
 
     /**
      * HTML элемент, в который встраивается компонент
      * @private
      */
-    private readonly _controlPanel: HTMLElement;
+    private readonly _root: HTMLElement;
 
-    private readonly _elements: Elements = {};
+    get root(){ return this._root }
+    /**
+     * Объект элементов на текущем уровне
+     * @private
+     */
+    private readonly _elements:Elements = {}
+    get elements(){ return this._elements }
 
     private static _selectData = [
         {key: "date", value: "По дате"},
@@ -48,7 +55,7 @@ export class ControlPanel {
 
 
     constructor(controlPanel: HTMLElement) {
-        this._controlPanel = controlPanel;
+        this._root = controlPanel;
         this.render();
     }
 
@@ -56,8 +63,8 @@ export class ControlPanel {
      * Отрисовывает компонент
      */
     render() {
-        this._controlPanel.innerHTML = ControlPanel._template;
-        getElements(this._controlPanel, this._elements);
+        this._root.innerHTML = ControlPanel._template;
+        getElements(this._root, this._elements);
         this.addListeners();
     }
 
@@ -84,8 +91,11 @@ export class ControlPanel {
     }
 
     onSelectDropdownClick = (event: MouseEvent) => {
+        const dropdown = this._elements[ELEMENTS.selectDropdown];
         if (event.target instanceof HTMLElement)
             sessionStorage.setItem("sort", event.target.getAttribute("value")!)
+
+        dropdown.classList.toggle(style.hide);
     }
 
     addListeners(){

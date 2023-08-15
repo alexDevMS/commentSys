@@ -21,7 +21,7 @@ export interface User {
 }
 
 
-export const USER_REQUEST = 'https://randomuser.me/api/?inc=name,login,picture&noinfo';
+export const USER_REQUEST = 'https://randomuser.me/api/?inc=name,login,picture&noinfo&nat=us';
 
 
 
