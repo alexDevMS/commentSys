@@ -1,0 +1,35 @@
+@import "/src/assets/styles/variables";
+
+.input {
+  resize: none;
+  display: block;
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px 5px $bg-block;
+}
+
+.inputContainer {
+  display: block;
+  width: 60%;
+}
+
+.send {
+  width: 200px;
+  height: 70px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $green;
+}
+
+.image {
+ border-radius: 50%;
+  width: 70px;
+  height: 70px;
+  overflow: hidden;
+  background: $green;
+  color: white;
+  
+}

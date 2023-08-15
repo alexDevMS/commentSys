@@ -46,6 +46,7 @@ export class ControlPanel {
     `
 
 
+
     constructor(controlPanel: HTMLElement) {
         this._controlPanel = controlPanel;
         this.render();
