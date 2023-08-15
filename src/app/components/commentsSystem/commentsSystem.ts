@@ -15,6 +15,7 @@ enum ELEMENTS {
 }
 
 export class CommentsSystem implements Component {
+
     /**
      * HTML элемент, в который встраивается компонент
      * @private
@@ -28,6 +29,11 @@ export class CommentsSystem implements Component {
     private readonly _elements:Elements = {}
     get elements(){ return this._elements }
 
+    private _controlPanel!: ControlPanel;
+    // @ts-ignore
+    private _addCommentForm!: AddCommentForm;
+    private _comments!: Comments;
+
 
     /**
      * Шаблон компонента (неизменяемый)
@@ -40,9 +46,10 @@ export class CommentsSystem implements Component {
     `
 
     constructor(commentsRoot: HTMLElement) {
-        this._root = commentsRoot
-        this.render()
+        this._root = commentsRoot;
+        this.render();
     }
+
 
     /**
      * Отрисовывает компонент
@@ -56,8 +63,18 @@ export class CommentsSystem implements Component {
         if(!sessionStorage.getItem("sort"))
             sessionStorage.setItem("sort", "relevance");
 
-        const controlPanel = new ControlPanel(this._elements[ELEMENTS.controlPanel]);
-        const addCommentForm = new AddCommentForm(this._elements[ELEMENTS.addCommentForm]);
-        const comments = new Comments(this._elements[ELEMENTS.comments]);
+        this._controlPanel = new ControlPanel(this._elements[ELEMENTS.controlPanel]);
+        this._addCommentForm = new AddCommentForm(this._elements[ELEMENTS.addCommentForm], this.updateCounter, this.updateComments);
+        this._comments = new Comments(this._elements[ELEMENTS.comments]);
+    }
+
+    updateCounter = () => {
+        console.log(this._controlPanel);
+        this._controlPanel.updateCounter();
+    }
+
+    updateComments =() => {
+        console.log(this._comments);
+        this._comments.updateComments();
     }
 }

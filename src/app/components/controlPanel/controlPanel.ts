@@ -7,6 +7,7 @@ enum ELEMENTS {
     favoriteFilter = "favoriteFilter",
     selectButton = "selectButton",
     selectDropdown = "selectDropdown",
+    counter = "counter",
 }
 
 export class ControlPanel implements Component {
@@ -16,8 +17,8 @@ export class ControlPanel implements Component {
      * @private
      */
     private readonly _root: HTMLElement;
-
     get root(){ return this._root }
+
     /**
      * Объект элементов на текущем уровне
      * @private
@@ -38,7 +39,7 @@ export class ControlPanel implements Component {
      */
     private static _template = `
         <button data-element="${ELEMENTS.allCommentsFilter}">
-            Комментарии <span class="${style.commentCounter}">(${5})</span>
+            Комментарии <span data-element="${ELEMENTS.counter}" class="${style.commentCounter}">(${0})</span>
         </button>
         <div class="${style.select}">
             <button data-element="${ELEMENTS.selectButton}">По актуальности <img src="/arrow.png" alt="arrow"/></button>
@@ -52,8 +53,6 @@ export class ControlPanel implements Component {
         </button>
     `
 
-
-
     constructor(controlPanel: HTMLElement) {
         this._root = controlPanel;
         this.render();
@@ -65,7 +64,14 @@ export class ControlPanel implements Component {
     render() {
         this._root.innerHTML = ControlPanel._template;
         getElements(this._root, this._elements);
+        this.updateCounter();
         this.addListeners();
+    }
+
+    updateCounter() {
+        const counter = this._elements[ELEMENTS.counter];
+        const commentCount = JSON.parse(sessionStorage.getItem("comments")!).length;
+        counter.innerHTML = `(${commentCount})`;
     }
 
     onAllCommentsFilterClick = () => {
