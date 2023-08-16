@@ -2,6 +2,7 @@ import {Elements, getElements} from "../utils/utils.ts";
 import {getUser, User} from "../../../request.ts";
 import style from "./addCommentForm.module.scss";
 import {Component} from "../utils/declareComponent.ts";
+import {CommentType} from "../comment/comment.ts";
 
 enum ELEMENTS {
     avatar =  "avatar",
@@ -90,9 +91,12 @@ export class AddCommentForm implements Component{
         if (!input.value) return; // Error
 
         const comments = JSON.parse(sessionStorage.getItem("comments")!);
-        const data = {
+        const data:CommentType = {
             ...this._user,
             comment: input.value,
+            isFavorite: false,
+            vote: Math.floor(Math.random() * (101 + 100) - 100),
+            timestamp:  new Date(Date.now()),
         }
         comments.push(data);
         sessionStorage.setItem("comments", JSON.stringify(comments));
