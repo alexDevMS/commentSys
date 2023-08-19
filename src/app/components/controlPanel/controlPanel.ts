@@ -1,6 +1,7 @@
 import {Elements, getElements} from "../utils/utils.ts";
 import style from "./controlPanel.module.scss";
 import {Component} from "../utils/declareComponent.ts";
+import {CommentType} from "../comment/comment.ts";
 
 enum ELEMENTS {
     allCommentsFilter = "allCommentsFilter",
@@ -26,11 +27,13 @@ export class ControlPanel implements Component {
     private readonly _elements:Elements = {}
     get elements(){ return this._elements }
 
+    private readonly _updateComments:()=>void
+
     private static _selectData = [
         {key: "date", value: "По дате"},
         {key: "reply", value: "По ответам"},
         {key: "relevance", value: "По актуальности"},
-        {key: "vote", value: "По голосам"},
+        {key: "rating", value: "По голосам"},
     ]
 
     /**
@@ -53,8 +56,9 @@ export class ControlPanel implements Component {
         </button>
     `
 
-    constructor(controlPanel: HTMLElement) {
+    constructor(controlPanel: HTMLElement, updateComments: ()=>void) {
         this._root = controlPanel;
+        this._updateComments = updateComments;
         this.render();
     }
 
@@ -70,7 +74,9 @@ export class ControlPanel implements Component {
 
     updateCounter() {
         const counter = this._elements[ELEMENTS.counter];
-        const commentCount = JSON.parse(sessionStorage.getItem("comments")!).length;
+        const commentCount = JSON.parse(sessionStorage.getItem("comments")!)
+            .filter((item:CommentType) => !item.parent)
+            .length;
         counter.innerHTML = `(${commentCount})`;
     }
 
@@ -97,11 +103,18 @@ export class ControlPanel implements Component {
     }
 
     onSelectDropdownClick = (event: MouseEvent) => {
+        const button = this._elements[ELEMENTS.selectButton];
         const dropdown = this._elements[ELEMENTS.selectDropdown];
-        if (event.target instanceof HTMLElement)
-            sessionStorage.setItem("sort", event.target.getAttribute("value")!)
+        if (event.target instanceof HTMLElement) {
+            const sortType = event.target.getAttribute("value")!;
+            const sortTypeLabel = ControlPanel._selectData
+                .find(item=> item.key === sortType)!;
 
+            sessionStorage.setItem("sort", sortType);
+            button.innerHTML = `${sortTypeLabel.value} <img src="/arrow.png" alt="arrow"/>`
+        }
         dropdown.classList.toggle(style.hide);
+        this._updateComments();
     }
 
     addListeners(){

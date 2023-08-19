@@ -16,7 +16,10 @@
 }
 
 .comments {
-  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  margin-bottom: 100px;
 }
 
 /*# sourceMappingURL=commentsSystem.module.css.map */

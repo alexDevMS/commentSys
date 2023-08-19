@@ -1,7 +1,91 @@
+@import "/src/assets/styles/variables";
+
 .hide {
   display: none;
 }
 
+.title {
+  display: flex;
+  gap: 40px;
+}
+
 .replies {
-  margin-left: 30px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+  margin-left: 70px;
+  gap: 50px;
+  position: relative;
+}
+
+.avatar {
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+  overflow: hidden;
+  background: $green;
+  color: white;
+}
+
+.dataContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-left: 10px;
+}
+
+.controls {
+  display: flex;
+  gap: 10px;
+}
+
+.commentContainer {
+  display: flex;
+}
+
+.voteSystem {
+  display: flex;
+  gap: 5px;
+}
+
+.red {
+  color: $red;
+}
+
+.green {
+  color: $green;
+}
+
+.voteButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+
+  padding: 5px;
+  border-radius: 50%;
+  background-color: $bg-block;
+}
+
+.addCommentForm {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  height: 70px;
+  margin: 65px 0;
+  width: 100%;
+}
+
+.replyLine {
+  position: absolute;
+  margin-left: -40px;
+  width: 5px;
+  border-radius: 5px;
+  background-color: $bg-block;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: -1;
 }

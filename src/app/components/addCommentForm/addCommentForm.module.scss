@@ -7,11 +7,12 @@
   padding: 10px;
   border-radius: 10px;
   box-shadow: 0 0 10px 5px $bg-block;
+  max-height: 140px;
 }
 
 .inputContainer {
+  width: 50%;
   display: block;
-  width: 60%;
 }
 
 .send {
@@ -25,11 +26,10 @@
 }
 
 .image {
- border-radius: 50%;
+  border-radius: 50%;
   width: 70px;
   height: 70px;
   overflow: hidden;
   background: $green;
   color: white;
-  
 }

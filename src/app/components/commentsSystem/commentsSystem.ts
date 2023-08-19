@@ -60,21 +60,18 @@ export class CommentsSystem implements Component {
 
         if (!sessionStorage.getItem("comments"))
             sessionStorage.setItem("comments", "[]");
-        if(!sessionStorage.getItem("sort"))
             sessionStorage.setItem("sort", "relevance");
 
-        this._controlPanel = new ControlPanel(this._elements[ELEMENTS.controlPanel]);
+        this._controlPanel = new ControlPanel(this._elements[ELEMENTS.controlPanel], this.updateComments);
         this._addCommentForm = new AddCommentForm(this._elements[ELEMENTS.addCommentForm], this.updateCounter, this.updateComments);
         this._comments = new Comments(this._elements[ELEMENTS.comments]);
     }
 
     updateCounter = () => {
-        console.log(this._controlPanel);
         this._controlPanel.updateCounter();
     }
 
-    updateComments =() => {
-        console.log(this._comments);
+    updateComments = () => {
         this._comments.updateComments();
     }
 }
